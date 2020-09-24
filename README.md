@@ -23,13 +23,7 @@ Enter the provider directory and build the provider
 
 ```sh
 $ cd terraform-provider-cloudcraft
-$ make build
-```
-
-Enter the provider directory and build the provider
-
-```sh
-$ cd terraform-provider-cloudcraft
+$ make init
 $ make build
 ```
 
@@ -52,6 +46,7 @@ Enter the provider directory and build the provider
 
 ```sh
 $ cd terraform-provider-cloudcraft
+$ make init
 $ make build
 ```
 
