@@ -28,7 +28,7 @@ $ make build
 ```
 
 Install the provider to the local terraform directories
-
+Change the OS_ARCH= variable in the makefile before installing. By default it's setup to a 64bit linux machine.
 ```sh
 $ make install
 ```
@@ -51,7 +51,7 @@ $ make build
 ```
 
 Install the provider to the local terraform directories
-
+Change the OS_ARCH= variable in the makefile before installing. By default it's setup to a 64bit linux machine.
 ```sh
 $ make install
 ```
