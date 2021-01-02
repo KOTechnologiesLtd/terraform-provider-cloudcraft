@@ -63,3 +63,6 @@ fmt:
 
 fmtcheck:
 	@sh -c "'$(CURDIR)/scripts/gofmtcheck.sh'"
+
+documentation:
+	./tfplugindocs generate
