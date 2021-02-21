@@ -23,6 +23,12 @@ func Provider() *schema.Provider {
 				DefaultFunc: schema.EnvDefaultFunc("CLOUDCRAFT_HOST", nil),
 				Description: "Host URL for cloudcraft",
 			},
+			"max_retries": {
+				Type:        schema.TypeInt,
+				Optional:    true,
+				Default:     1,
+				Description: "Max Retries",
+			},
 		},
 		ConfigureFunc: providerConfigure,
 
@@ -40,8 +46,10 @@ func Provider() *schema.Provider {
 func providerConfigure(d *schema.ResourceData) (interface{}, error) {
 	apiKey := d.Get("apikey").(string)
 	baseurl := d.Get("baseurl").(string)
+	max_retries := d.Get("max_retries").(int)         
 
-	client := cloudcraft.NewClient(apiKey, baseurl)
+
+	client := cloudcraft.NewClient(apiKey, baseurl, max_retries)
 
 	return client, nil
 }
