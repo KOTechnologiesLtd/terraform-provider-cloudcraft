@@ -46,8 +46,7 @@ func Provider() *schema.Provider {
 func providerConfigure(d *schema.ResourceData) (interface{}, error) {
 	apiKey := d.Get("apikey").(string)
 	baseurl := d.Get("baseurl").(string)
-	max_retries := d.Get("max_retries").(int)         
-
+	max_retries := d.Get("max_retries").(int)
 
 	client := cloudcraft.NewClient(apiKey, baseurl, max_retries)
 
