@@ -20,3 +20,4 @@ description: |-
 ### Optional
 
 - **baseurl** (String) Host URL for cloudcraft
+- **max_retries** (Number) Max Retries

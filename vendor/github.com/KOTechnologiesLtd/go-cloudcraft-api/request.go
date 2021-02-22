@@ -9,55 +9,69 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"time"
 )
 
 //RequestResponse Recieve Request and Respond with Response Body.
 //The response body will contain valid error or valid response.
 func (c *Client) RequestResponse(method, path string, reqbody, out interface{}) error {
-
-	//create a request
-	req, err := c.createRequest(method, path, reqbody)
-	if err != nil {
-		log.Printf("[ERROR] Create Request Failed %s", err)
-		return err
-	}
-	//send the request
-	log.Printf("[DEBUG] Request Path %s", path)
-	log.Printf("[DEBUG] Request Body %s", reqbody)
-
-	resp, err := c.sendRequest(req)
-
-	if err != nil {
-		log.Printf("[ERROR] Request Failed %s", err)
-		return err
-	}
-	//close the response body
-	defer resp.Body.Close()
-
-	//check if the status code is outside a succcessful response and if it is populate body with custom error msg
-	if resp.StatusCode < 200 || resp.StatusCode > 299 {
-		body, err := ioutil.ReadAll(resp.Body)
+	var respbody []byte
+	var attempt int = 0
+	var sleep int = 60
+	for attempt < c.max_retries {
+		attempt++
+		log.Printf("[DEBUG] Attempt (retry) %d", attempt)
+		//create a request
+		req, err := c.createRequest(method, path, reqbody)
 		if err != nil {
-			log.Printf("[ERROR] Error Reading error resp body")
+			log.Printf("[ERROR] Create Request Failed %s", err)
 			return err
 		}
-		return fmt.Errorf("[ERROR] API error %s: %s", resp.Status, body)
-	}
+		//send the request
+		log.Printf("[DEBUG] Request Path %s", path)
+		log.Printf("[DEBUG] Request Body %s", reqbody)
 
-	respbody, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return err
-	}
-	if len(respbody) == 0 {
-		respbody = []byte{'{', '}'}
-	}
+		resp, err := c.sendRequest(req)
 
-	// If they don't care about the body, then we don't care to give them one,
-	// so bail out because we're done.
-	if out == nil {
-		return nil
-	}
+		if err != nil {
+			log.Printf("[ERROR] Request Failed %s", err)
+			return err
+		}
+		//close the response body
+		defer resp.Body.Close()
 
+		//check if the status code is outside a succcessful response and if it is populate body with custom error msg
+		if resp.StatusCode < 200 || resp.StatusCode > 299 {
+			body, err := ioutil.ReadAll(resp.Body)
+			if err != nil {
+				log.Printf("[ERROR] Error Reading error resp body")
+				if attempt == c.max_retries {
+					return err
+				}
+			}
+			if attempt == c.max_retries {
+				return fmt.Errorf("[ERROR] API error %s: %s", resp.Status, body)
+			}
+			time.Sleep(time.Duration(sleep) * time.Second)
+			continue
+		}
+
+		respbody, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			return err
+		}
+		if len(respbody) == 0 {
+			respbody = []byte{'{', '}'}
+		}
+
+		// If they don't care about the body, then we don't care to give them one,
+		// so bail out because we're done.
+		if out == nil {
+			return nil
+		}
+
+		return json.Unmarshal(respbody, &out)
+	}
 	return json.Unmarshal(respbody, &out)
 }
 
