@@ -1,1 +1,4 @@
 *.code-workspace
+**/*.tfstate*
+**/terraform
+**/crash.log

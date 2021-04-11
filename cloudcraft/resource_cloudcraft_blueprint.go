@@ -115,11 +115,14 @@ func resourceBlueprintUpdate(ctx context.Context, d *schema.ResourceData, m inte
 	bpID := d.Id()
 	updates.ID = &bpID
 
+	updatedbpData := cloudcraft.DataDetails{}
+
 	if d.HasChange("name") || d.HasChange("grid") {
 		newName := d.Get("name").(string)
-		updates.Data.Name = &newName
+		updatedbpData.Name = &newName
 		newGrid := d.Get("grid").(string)
-		updates.Data.Grid = &newGrid
+		updatedbpData.Grid = &newGrid
+		updates.Data = &updatedbpData
 	}
 
 	err := client.BluePrintUpdate(&updates)
