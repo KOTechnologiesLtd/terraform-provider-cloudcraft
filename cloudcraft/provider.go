@@ -20,13 +20,13 @@ func Provider() *schema.Provider {
 			"baseurl": {
 				Type:        schema.TypeString,
 				Optional:    true,
-				DefaultFunc: schema.EnvDefaultFunc("CLOUDCRAFT_HOST", nil),
+				DefaultFunc: schema.EnvDefaultFunc("CLOUDCRAFT_HOST", "api.cloudcraft.co"),
 				Description: "Host URL for cloudcraft",
 			},
 			"max_retries": {
 				Type:        schema.TypeInt,
 				Optional:    true,
-				Default:     1,
+				DefaultFunc: schema.EnvDefaultFunc("CLOUDCRAFT_MAX_RETRIES", 1),
 				Description: "Max Retries",
 			},
 		},

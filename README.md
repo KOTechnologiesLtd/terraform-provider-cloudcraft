@@ -35,7 +35,17 @@ $ make install
 
 ## Using the provider
 
-Please see the [examples](examples) directory for an example on how to use each.
+Please see the [examples](examples) directory for an example on how to use each resource and data source.
+
+The provider itself requires your CloudCraft API key to be specified (and has two further optional arguments). This can be done either as an argument in your `provider` block, or through an environment variables.
+
+### Provider Arguments
+
+| Argument Name | Environment Variable     | Type              | Description                               | Required? | Default             |
+|---------------|--------------------------|-------------------|-------------------------------------------|-----------|---------------------|
+| `apikey`      | `CLOUDCRAFT_APIKEY`      | String, Sensitive | API Key for CloudCraft                    | Yes       |                     |
+| `baseurl`     | `CLOUDCRAFT_BASEURL`     | String            | Host URL for cloudcraft.                  | No        | `api.cloudcraft.co` |
+| `max_retries` | `CLOUDCRAFT_MAX_RETRIES` | Number            | Max retries for each CloudCraft API call. | No        | `1`                 |
 
 ## Developing the Provider
 
