@@ -10,6 +10,7 @@ https://www.cloudcraft.co/
 
 - [Terraform](https://www.terraform.io/downloads.html) 0.12.x or above
 - [Go](https://golang.org/doc/install) 1.15 (to build the provider plugin)
+- make (On ubuntu apt-get install make)
 
 ## Building The Provider
 
@@ -55,3 +56,5 @@ Change the OS_ARCH= variable in the makefile before installing. By default it's 
 ```sh
 $ make install
 ```
+## Preparing for the a pull request or merge request.
+Run 'make' without a target, this will run the required targets to create the binary and the documentation.
