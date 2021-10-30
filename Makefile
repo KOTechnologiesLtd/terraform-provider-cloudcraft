@@ -8,7 +8,7 @@ PLUGINDIR=~/.terraform.d/plugins
 VERSION=1.0.0
 OS_ARCH=linux_amd64
 
-default: build
+default: build documentation
 
 init:
 	go mod init ${BINARY}
@@ -24,6 +24,7 @@ reinit:
 
 build: fmtcheck
 	go build ${BINARY}
+	
 
 release:
 	GOOS=darwin GOARCH=amd64 go build -o ./bin/${BINARY}_${VERSION}_darwin_amd64
