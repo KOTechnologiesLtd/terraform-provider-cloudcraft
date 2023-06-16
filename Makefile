@@ -5,7 +5,7 @@ NAMESPACE=KOTechnologiesLtd
 NAME=cloudcraft
 BINARY=terraform-provider-${NAME}
 PLUGINDIR=~/.terraform.d/plugins
-VERSION=1.0.0
+VERSION=2.0.0
 OS_ARCH=linux_amd64
 
 default: build documentation
@@ -13,14 +13,14 @@ default: build documentation
 init:
 	go mod init ${BINARY}
 	#GOPRIVATE=github.com/KOTechnologiesLtd/go-cloudcraft-api go mod vendor
-	go mod vendor
+	go mod tidy
 
 reinit:
 	rm -f go.sum go.mod
 	rm -rf vendor
 	go mod init ${BINARY}
 	##GOPRIVATE=github.com/KOTechnologiesLtd/go-cloudcraft-api go mod vendor
-	go mod vendor
+	go mod tidy
 
 build: fmtcheck
 	go build ${BINARY}

@@ -8,9 +8,11 @@ https://www.cloudcraft.co/
 
 ## Requirements
 
-- [Terraform](https://www.terraform.io/downloads.html) 0.12.x or above
-- [Go](https://golang.org/doc/install) 1.15 (to build the provider plugin)
+- Docker engine linux. If you have the docker engine then you won't need to install the individual requirements, instead use `docker build .`
+- [Terraform](https://www.terraform.io/downloads.html) 0.13.x or above
+- [Go](https://golang.org/doc/install) 1.18.4 (to build the provider plugin)
 - make (On ubuntu apt-get install make)
+
 
 ## Building The Provider
 
@@ -21,6 +23,14 @@ $ git clone https://github.com/KOTechnologiesLtd/terraform-provider-cloudcraft
 ```
 
 Enter the provider directory and build the provider
+
+```sh
+$ cd terraform-provider-cloudcraft
+$ docker build .
+copy the built files out of the docker container.
+```
+
+or
 
 ```sh
 $ cd terraform-provider-cloudcraft
@@ -40,7 +50,7 @@ Please see the [examples](examples) directory for an example on how to use each.
 
 ## Developing the Provider
 
-If you wish to work on the provider, you'll first need [Go](http://www.golang.org) installed on your machine (version 1.15+ is _required_). You'll also need to correctly setup a [GOPATH](http://golang.org/doc/code.html#GOPATH), as well as adding `$GOPATH/bin` to your `$PATH`.
+If you wish to work on the provider, you'll first need [Go](http://www.golang.org) installed on your machine (version 1.18.4+ is _required_). You'll also need to correctly setup a [GOPATH](http://golang.org/doc/code.html#GOPATH), as well as adding `$GOPATH/bin` to your `$PATH`.
 
 
 Enter the provider directory and build the provider
