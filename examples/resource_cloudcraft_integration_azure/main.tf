@@ -12,7 +12,7 @@ provider "cloudcraft" {
 }
 
 resource "cloudcraft_integration_azure" "cloudcraftintegrationazure" {
-  id = ""
+  name = ""
   applicationid = ""
   directoryid = ""
   subscriptionid = ""

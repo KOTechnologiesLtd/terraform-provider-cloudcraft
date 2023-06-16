@@ -13,10 +13,6 @@ provider "cloudcraft" {
 
 data "cloudcraft_integration_azure" "integratedazureaccount" {
   id = ""
-  applicationid = ""
-  directoryid = ""
-  subscriptionid = ""
-  clientsecret = ""
 }
 
 output "account_name" {

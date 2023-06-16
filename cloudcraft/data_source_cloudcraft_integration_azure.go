@@ -22,19 +22,19 @@ func dataSourceIntegrationAzure() *schema.Resource {
 			},
 			"applicationid": {
 				Type:     schema.TypeString,
-				Required: true,
+				Computed: true,
 			},
 			"directoryid": {
 				Type:     schema.TypeString,
-				Required: true,
+				Computed: true,
 			},
 			"subscriptionid": {
 				Type:     schema.TypeString,
-				Required: true,
+				Computed: true,
 			},
 			"clientsecret": {
 				Type:     schema.TypeString,
-				Required: true,
+				Computed: true,
 			},
 			"externalid": {
 				Type:     schema.TypeString,
