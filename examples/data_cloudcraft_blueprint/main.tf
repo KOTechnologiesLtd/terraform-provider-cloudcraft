@@ -1,19 +1,18 @@
-#terraform 13 syntax
-#terraform {
-#  required_providers {
-#    cloudcraft = {
-#      source  = "github.com/kotechnologiesltd/cloudcraft"
-#      versions = ["0.1"]
-#    }
-#  }
-#}
+terraform {
+  required_providers {
+    cloudcraft = {
+      source  = "github.com/kotechnologiesltd/cloudcraft"
+      version = "2.0.0"
+    }
+  }
+}
 
 provider "cloudcraft" {
-    apikey = "APIKEY"
-  }
+  apikey = ""
+}
 
 data "cloudcraft_blueprint" "blueprint" {
-  id = "BLUEPRINTID"
+  id = ""
 }
 
 output "blueprint_name" {

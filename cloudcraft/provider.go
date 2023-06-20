@@ -33,12 +33,14 @@ func Provider() *schema.Provider {
 		ConfigureFunc: providerConfigure,
 
 		ResourcesMap: map[string]*schema.Resource{
-			"cloudcraft_integration_aws": resourceIntegrationAws(),
-			"cloudcraft_blueprint":       resourceBlueprint(),
+			"cloudcraft_integration_aws":   resourceIntegrationAws(),
+			"cloudcraft_integration_azure": resourceIntegrationAzure(),
+			"cloudcraft_blueprint":         resourceBlueprint(),
 		},
 		DataSourcesMap: map[string]*schema.Resource{
-			"cloudcraft_integration_aws": dataSourceIntegrationAws(),
-			"cloudcraft_blueprint":       datasourceBlueprint(),
+			"cloudcraft_integration_aws":   dataSourceIntegrationAws(),
+			"cloudcraft_integration_azure": dataSourceIntegrationAzure(),
+			"cloudcraft_blueprint":         datasourceBlueprint(),
 		},
 	}
 }

@@ -1,21 +1,19 @@
-#terraform 13 syntax
-#terraform {
-#  required_providers {
-#    cloudcraft = {
-#      source  = "github.com/kotechnologiesltd/cloudcraft"
-#      versions = ["0.1"]
-#    }
-#  }
-#}
-  
+terraform {
+  required_providers {
+    cloudcraft = {
+      source  = "github.com/kotechnologiesltd/cloudcraft"
+      version = "2.0.0"
+    }
+  }
+}
 
 provider "cloudcraft" {
-    apikey = "APIKEY"
+  apikey = ""
 }
 
 resource "cloudcraft_integration_aws" "cloudcraftintegrationaws" {
-    name = "INTEGRATIONNAME"
-    rolearn = "YOURAWSROLEARN"
+  name    = ""
+  rolearn = ""
 }
 
 output "ccawsaccountid" {
