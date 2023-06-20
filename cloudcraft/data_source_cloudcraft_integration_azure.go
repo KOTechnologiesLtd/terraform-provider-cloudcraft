@@ -32,14 +32,6 @@ func dataSourceIntegrationAzure() *schema.Resource {
 				Type:     schema.TypeString,
 				Computed: true,
 			},
-			"clientsecret": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"externalid": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
 			"createdat": {
 				Type:     schema.TypeString,
 				Computed: true,
@@ -85,8 +77,6 @@ func dataSourceIntegrationAzureRead(ctx context.Context, d *schema.ResourceData,
 	d.Set("applicationid", accountInfo.ApplicationId)
 	d.Set("directoryid", accountInfo.DirectoryId)
 	d.Set("subscriptionid", accountInfo.SubscriptionId)
-	d.Set("clientsecret", accountInfo.ClientSecret)
-	d.Set("externalid", accountInfo.ExternalID)
 	d.Set("createdat", accountInfo.CreatedAt)
 	d.Set("updatedat", accountInfo.UpdatedAt)
 	d.Set("creatorid", accountInfo.CreatorID)

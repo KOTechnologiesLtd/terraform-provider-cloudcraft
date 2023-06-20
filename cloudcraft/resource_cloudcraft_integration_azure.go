@@ -39,10 +39,6 @@ func resourceIntegrationAzure() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 			},
-			"externalid": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
 			"createdat": {
 				Type:     schema.TypeString,
 				Computed: true,
@@ -112,7 +108,6 @@ func resourceIntegrationAzureRead(ctx context.Context, d *schema.ResourceData, m
 	d.Set("applicationid", accountInfo.ApplicationId)
 	d.Set("directoryid", accountInfo.DirectoryId)
 	d.Set("subscriptionid", accountInfo.SubscriptionId)
-	d.Set("clientsecret", accountInfo.ClientSecret)
 	d.Set("name", accountInfo.Name)
 
 	return diags
@@ -127,20 +122,20 @@ func resourceIntegrationAzureUpdate(ctx context.Context, d *schema.ResourceData,
 	updates.ID = &accountID
 
 	if d.HasChange("name") || d.HasChange("applicationid") || d.HasChange("directoryid") || d.HasChange("subscriptionid") || d.HasChange("clientsecret") {
-		newName := d.Get("name").(string)
+
 		//log.Printf("name update%s", newName)
+		newName := d.Get("name").(string)
+		newApplicationId := d.Get("applicationid").(string)
+		newDirectoryId := d.Get("directoryid").(string)
+		newSubscriptionId := d.Get("subscriptionid").(string)
+		newclientSecret := d.Get("clientsecret").(string)
+		//log.Printf("azure update%s", newApplicationId, newDirectoryId, newSubscriptionId)
 		updates.Name = &newName
-
-		newApplicationId := d.Get("applicationsd").(string)
-		newDirectoryId := d.Get("directorysd").(string)
-		newSubscriptionId := d.Get("subscriptionsd").(string)
-		newClientSecret := d.Get("clientsecret").(string)
-
-		//log.Printf("azure update%s", newApplicationId, newDirectoryId, newSubscriptionId, newClientSecret)
 		updates.ApplicationId = &newApplicationId
 		updates.DirectoryId = &newDirectoryId
 		updates.SubscriptionId = &newSubscriptionId
-		updates.ClientSecret = &newClientSecret
+		updates.ClientSecret = &newclientSecret
+
 	}
 
 	err := client.AccountIntegrationAzureUpdate(&updates)
