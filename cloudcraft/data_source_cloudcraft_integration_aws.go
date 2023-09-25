@@ -3,7 +3,7 @@ package cloudcraft
 import (
 	"context"
 
-	"github.com/KOTechnologiesLtd/go-cloudcraft-api"
+	"github.com/KOTechnologiesLtd/go-cloudcraft-api/v2"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )

@@ -1,7 +1,7 @@
 package cloudcraft
 
 import (
-	"github.com/KOTechnologiesLtd/go-cloudcraft-api"
+	"github.com/KOTechnologiesLtd/go-cloudcraft-api/v2"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
@@ -38,9 +38,10 @@ func Provider() *schema.Provider {
 			"cloudcraft_blueprint":         resourceBlueprint(),
 		},
 		DataSourcesMap: map[string]*schema.Resource{
-			"cloudcraft_integration_aws":   dataSourceIntegrationAws(),
-			"cloudcraft_integration_azure": dataSourceIntegrationAzure(),
-			"cloudcraft_blueprint":         datasourceBlueprint(),
+			"cloudcraft_integration_aws":           dataSourceIntegrationAws(),
+			"cloudcraft_integration_azure":         dataSourceIntegrationAzure(),
+			"cloudcraft_blueprint":                 datasourceBlueprint(),
+			"cloudcraft_integration_aws_iamparams": dataSourceIntegrationAwsIamParams(),
 		},
 	}
 }
