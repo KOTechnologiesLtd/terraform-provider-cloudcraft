@@ -18,11 +18,9 @@ description: |-
 ### Read-Only
 
 - `applicationid` (String)
-- `clientsecret` (String)
 - `createdat` (String)
 - `creatorid` (String)
 - `directoryid` (String)
-- `externalid` (String)
 - `id` (String) The ID of this resource.
 - `name` (String)
 - `subscriptionid` (String)
