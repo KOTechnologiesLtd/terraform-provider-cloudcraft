@@ -27,6 +27,5 @@ description: |-
 
 - `createdat` (String)
 - `creatorid` (String)
-- `externalid` (String)
 - `id` (String) The ID of this resource.
 - `updatedat` (String)
