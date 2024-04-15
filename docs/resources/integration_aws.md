@@ -20,6 +20,11 @@ description: |-
 - `name` (String)
 - `rolearn` (String)
 
+### Optional
+
+- `read_access` (List of String)
+- `write_access` (List of String)
+
 ### Read-Only
 
 - `createdat` (String)
