@@ -3,6 +3,7 @@ package cloudcraft
 import (
 	"context"
 	"fmt"
+
 	"github.com/KOTechnologiesLtd/go-cloudcraft-api/v2"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
@@ -82,8 +83,8 @@ func resourceIntegrationAwsCreate(ctx context.Context, d *schema.ResourceData, m
 	accCreate := cloudcraft.AccountIntegrationAws{}
 	accCreate.Name = &name
 	accCreate.RoleArn = &roleArn
-	accCreate.ReadAccess = readAccess
-	accCreate.WriteAccess = writeAccess
+	accCreate.ReadAccess = &readAccess
+	accCreate.WriteAccess = &writeAccess
 
 	//Request the action
 	if err := c.AccountIntegrationAwsCreate(&accCreate); err != nil {

@@ -47,3 +47,5 @@ require (
 	google.golang.org/grpc v1.57.0 // indirect
 	google.golang.org/protobuf v1.31.0 // indirect
 )
+
+replace github.com/KOTechnologiesLtd/go-cloudcraft-api/v2 => /home/vijay/work_wsl/kotechnologies/cloudcraft_issue3/go-cloudcraft-api
