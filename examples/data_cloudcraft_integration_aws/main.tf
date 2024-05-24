@@ -1,8 +1,9 @@
 terraform {
   required_providers {
     cloudcraft = {
-      source  = "github.com/kotechnologiesltd/cloudcraft"
-      version = "2.1.2"
+      source = "github.com/KOTechnologiesLtd/cloudcraft"
+      #source = "KOTechnologiesLtd/cloudcraft"
+      version = "2.1.3"
     }
   }
 }

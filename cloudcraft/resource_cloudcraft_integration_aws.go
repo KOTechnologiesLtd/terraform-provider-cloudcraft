@@ -139,6 +139,18 @@ func resourceIntegrationAwsUpdate(ctx context.Context, d *schema.ResourceData, m
 		newRoleArn := d.Get("rolearn").(string)
 		//log.Printf("rolearn update%s", newRoleArn)
 		updates.RoleArn = &newRoleArn
+
+		newReadAccess, err := getStringListFromResourceData(d, "read_access")
+		if err != nil {
+			return err
+		}
+		updates.ReadAccess = &newReadAccess
+
+		newWriteAccess, err := getStringListFromResourceData(d, "write_access")
+		if err != nil {
+			return err
+		}
+		updates.WriteAccess = &newWriteAccess
 	}
 
 	err := client.AccountIntegrationAwsUpdate(&updates)

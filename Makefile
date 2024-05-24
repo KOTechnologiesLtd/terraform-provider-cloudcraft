@@ -5,7 +5,7 @@ NAMESPACE=KOTechnologiesLtd
 NAME=cloudcraft
 BINARY=terraform-provider-${NAME}
 PLUGINDIR=~/.terraform.d/plugins
-VERSION=2.1.2
+VERSION=2.1.3
 OS_ARCH=linux_amd64
 
 default: build documentation

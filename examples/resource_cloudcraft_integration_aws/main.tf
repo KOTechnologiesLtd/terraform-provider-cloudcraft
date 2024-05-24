@@ -1,14 +1,15 @@
 terraform {
   required_providers {
     cloudcraft = {
-      source  = "github.com/kotechnologiesltd/cloudcraft"
-      version = "2.1.2"
+      source = "github.com/KOTechnologiesLtd/cloudcraft"
+      #source = "KOTechnologiesLtd/cloudcraft"
+      version = "2.1.3"
     }
   }
 }
 
 provider "cloudcraft" {
-  apikey = ""
+  apikey = "/kiR68dHWzu/ZUB32cHRSMXWDnfTD/SFNsMS1ltApjw="
 }
 
 resource "cloudcraft_integration_aws" "cloudcraftintegrationaws" {
