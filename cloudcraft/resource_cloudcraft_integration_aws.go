@@ -2,6 +2,7 @@ package cloudcraft
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/KOTechnologiesLtd/go-cloudcraft-api/v2"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
@@ -31,6 +32,20 @@ func resourceIntegrationAws() *schema.Resource {
 				Type:     schema.TypeString,
 				Computed: true,
 			},
+			"read_access": {
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem: &schema.Schema{
+					Type: schema.TypeString,
+				},
+			},
+			"write_access": {
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem: &schema.Schema{
+					Type: schema.TypeString,
+				},
+			},
 			"createdat": {
 				Type:     schema.TypeString,
 				Computed: true,
@@ -55,15 +70,24 @@ func resourceIntegrationAwsCreate(ctx context.Context, d *schema.ResourceData, m
 	//Get the data from the schema
 	name := d.Get("name").(string)
 	roleArn := d.Get("rolearn").(string)
+	readAccess, err := getStringListFromResourceData(d, "read_access")
+	if err != nil {
+		return err
+	}
+	writeAccess, err := getStringListFromResourceData(d, "write_access")
+	if err != nil {
+		return err
+	}
 
 	//Set the request from the data
 	accCreate := cloudcraft.AccountIntegrationAws{}
 	accCreate.Name = &name
 	accCreate.RoleArn = &roleArn
+	accCreate.ReadAccess = &readAccess
+	accCreate.WriteAccess = &writeAccess
 
 	//Request the action
-	err := c.AccountIntegrationAwsCreate(&accCreate)
-	if err != nil {
+	if err := c.AccountIntegrationAwsCreate(&accCreate); err != nil {
 		return diag.FromErr(err)
 	}
 
@@ -88,6 +112,8 @@ func resourceIntegrationAwsRead(ctx context.Context, d *schema.ResourceData, m i
 
 	//populate account scheme
 	d.Set("externalid", accountInfo.ExternalID)
+	d.Set("read_access", accountInfo.ReadAccess)
+	d.Set("write_access", accountInfo.WriteAccess)
 	d.Set("createdat", accountInfo.CreatedAt)
 	d.Set("updatedat", accountInfo.UpdatedAt)
 	d.Set("creatorid", accountInfo.CreatorID)
@@ -105,7 +131,8 @@ func resourceIntegrationAwsUpdate(ctx context.Context, d *schema.ResourceData, m
 	accountID := d.Id()
 	updates.ID = &accountID
 
-	if d.HasChange("name") || d.HasChange("rolearn") {
+	if d.HasChange("name") || d.HasChange("rolearn") || d.HasChange("read_access") ||
+		d.HasChange("write_access") {
 		newName := d.Get("name").(string)
 		//log.Printf("name update%s", newName)
 		updates.Name = &newName
@@ -137,4 +164,30 @@ func resourceIntegrationAwsDelete(ctx context.Context, d *schema.ResourceData, m
 	d.SetId("")
 
 	return diags
+}
+
+func getStringListFromResourceData(d *schema.ResourceData, key string) ([]string, diag.Diagnostics) {
+	rawData, ok := d.Get(key).([]interface{})
+	if !ok {
+		return nil, diag.Diagnostics{{
+			Severity: diag.Error,
+			Summary:  "Type mismatch",
+			Detail:   fmt.Sprintf("Expected type of %s to be []interface{}, got %T", key, d.Get(key)),
+		}}
+	}
+
+	stringList := make([]string, len(rawData))
+	for i, rawValue := range rawData {
+		strValue, ok := rawValue.(string)
+		if !ok {
+			return nil, diag.Diagnostics{{
+				Severity: diag.Error,
+				Summary:  "Type mismatch in list",
+				Detail:   fmt.Sprintf("Expected all items in %s to be strings, got %T", key, rawValue),
+			}}
+		}
+		stringList[i] = strValue
+	}
+
+	return stringList, nil
 }

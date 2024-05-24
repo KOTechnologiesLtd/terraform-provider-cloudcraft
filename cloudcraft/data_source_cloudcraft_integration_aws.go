@@ -2,6 +2,7 @@ package cloudcraft
 
 import (
 	"context"
+	"reflect"
 
 	"github.com/KOTechnologiesLtd/go-cloudcraft-api/v2"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
@@ -27,6 +28,20 @@ func dataSourceIntegrationAws() *schema.Resource {
 			"externalid": {
 				Type:     schema.TypeString,
 				Computed: true,
+			},
+			"read_access": {
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem: &schema.Schema{
+					Type: schema.TypeString,
+				},
+			},
+			"write_access": {
+				Type:     schema.TypeList,
+				Optional: true,
+				Elem: &schema.Schema{
+					Type: schema.TypeString,
+				},
 			},
 			"createdat": {
 				Type:     schema.TypeString,
@@ -59,7 +74,7 @@ func dataSourceIntegrationAwsRead(ctx context.Context, d *schema.ResourceData, m
 		}
 	}
 	//log.Printf("accounts%v ", accountInfo)
-	if (cloudcraft.AccountIntegrationAws{}) == accountInfo {
+	if reflect.DeepEqual(cloudcraft.AccountIntegrationAws{}, accountInfo) {
 		diags := append(diags, diag.Diagnostic{
 			Severity: diag.Error,
 			Summary:  "ID Not Found",
@@ -72,6 +87,8 @@ func dataSourceIntegrationAwsRead(ctx context.Context, d *schema.ResourceData, m
 	d.Set("name", accountInfo.Name)
 	d.Set("rolearn", accountInfo.RoleArn)
 	d.Set("externalid", accountInfo.ExternalID)
+	d.Set("read_access", accountInfo.ReadAccess)
+	d.Set("write_access", accountInfo.WriteAccess)
 	d.Set("createdat", accountInfo.CreatedAt)
 	d.Set("updatedat", accountInfo.UpdatedAt)
 	d.Set("creatorid", accountInfo.CreatorID)
